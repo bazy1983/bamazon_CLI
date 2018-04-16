@@ -2,10 +2,7 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require("cli-table");
 
-var table = new Table({
-    head: ['ID', 'Name', "Price", "Quantity"]
-    , colWidths: [10, 20, 10, 10]
-});
+
 var items = []; //used to validate against user input
 
 var connection = mysql.createConnection({
@@ -22,8 +19,12 @@ connection.connect(function (err) {
     askManager()
 })
 
-function viewStore() {
-    connection.query("SELECT * FROM products", function (err, res) { //show all products if stock is higher than zero
+function viewStore(quantity) {
+    connection.query("SELECT * FROM products WHERE stock_quantity <= ?", [quantity], function (err, res) { //show all products if stock is higher than zero
+        var table = new Table({
+            head: ['ID', 'Name', "Price", "Quantity"]
+            , colWidths: [10, 20, 10, 10]
+        });
         res.forEach(element => {
             items.push(element.item_id)
             table.push([element.item_id, element.product_name, `$${element.price}.00`, element.stock_quantity])
@@ -45,7 +46,10 @@ function askManager(res) {
         .then(function (answer) {
             switch (answer.options) {
                 case "View all products":
-                    viewStore();
+                    viewStore(1000); //to make sure it will display everything
+                    break;
+                case "View low inventory":
+                    viewStore(5);
                     break;
                 default:
                     connection.end(function (err) {
