@@ -1,0 +1,25 @@
+{
+  "name": "bamazon_CLI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bamazonCustomr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bazy1983/bamazon_CLI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bazy1983/bamazon_CLI/issues"
+  },
+  "homepage": "https://github.com/bazy1983/bamazon_CLI#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "inquirer": "^5.2.0",
+    "mysql": "^2.15.0"
+  }
+}
