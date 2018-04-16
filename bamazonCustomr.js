@@ -6,6 +6,7 @@ var table = new Table({
     head: ['ID', 'Name', "Price"]
     , colWidths: [10, 20, 10]
 });
+var items = []; //used to validate against user input
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -24,9 +25,10 @@ connection.connect(function (err) {
 function viewStore() {
     connection.query("SELECT * FROM products WHERE stock_quantity > 0", function (err, res) { //show all products if stock is higher than zero
         res.forEach(element => {
+            items.push(element.item_id)
             table.push([element.item_id, element.product_name, `$${element.price}.00`])
         });
-        console.log(table.toString())
+        console.log(table.toString());
 
         askCustomer(res);
     })
@@ -41,10 +43,9 @@ function askCustomer(res) {
                 if (isNaN(value)) {//only accept numbers
                     return false;
                 } else {
-                    return true;
+                    return items.includes(parseInt(value));
                 }
             }
-
         }, {
             name: "quantity",
             message: "Enter qauntity:",
@@ -58,7 +59,7 @@ function askCustomer(res) {
         }
     ])
         .then(function (answer) {
-            
+
             checkDB(answer.id, answer.quantity)
             //endConnection()
         })
