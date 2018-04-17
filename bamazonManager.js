@@ -51,10 +51,74 @@ function askManager(res) {
                 case "View low inventory":
                     viewStore(5);
                     break;
+                case "Add to inventory":
+                    addInventory();
+                    break;
+                case "Add new product":
+                    addNewItem();
+                    break;
                 default:
                     connection.end(function (err) {
                         console.log("Connection to the app ended")
                     })
             }
+        })
+}
+
+function addInventory() {
+    inquirer.prompt([
+        {
+            name: "id",
+            message: "What ID do you want to add to?"
+        },
+        {
+            name: "quantity",
+            message: "How many new units do you want to add?"
+        }
+    ])
+        .then(function (answer) {
+            connection.query("SELECT * FROM products WHERE ?", { item_id: answer.id }, function (err, res) {
+
+                let newStock = parseInt(answer.quantity) + res[0].stock_quantity;
+                console.log(newStock);
+                connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newStock, answer.id])
+                console.log(`Inventory for ${res[0].product_name} has increased from ${res[0].stock_quantity} to ${newStock}`);
+                askManager();
+            })
+        })
+}
+
+function addNewItem() {
+    inquirer.prompt([
+        {
+            name: "product",
+            message: "Product Name"
+        },
+        {
+            name: "department",
+            message: "Insert Department"
+        },
+        {
+            name: "price",
+            message: "Product price"
+        },
+        {
+            name: "quantity",
+            message: "Stock quantity"
+        },
+    ])
+        .then(function (answer) {
+            let price = parseInt(answer.price);
+            let quantity = parseInt(answer.quantity);
+            connection.query("INSERT INTO products SET ?", {
+                product_name: answer.product,
+                department_name: answer.department,
+                price: price,
+                stock_quantity: quantity
+            }, function (err, res, fields){
+                if (err) throw err;
+                console.log(`${answer.product} is added successfully.`)
+                askManager()
+            })
         })
 }
