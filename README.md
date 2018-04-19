@@ -26,3 +26,26 @@ and here are the changes in database
 *AFTER*
 
 ![](images/customer4.png)
+
+### Validation:
+
+I added some validation to the app to prevent the user from making wrong inputs.
+1- The app filters out any product that has stock_quantity of zero.
+2- The user can't request a quantity larger than what the stock offers.
+3- the app prevents the user from selecting IDs not showing in the list.
+
+## bamazonManager
+
+The app allows the manager to perform few activities, like viewing the entire store, veiw products with low stock (lower or equals to 5), add to the stock, or can add a new product.
+
+*View all products*
+
+![](images/manager1.png)
+
+*View low inventory*
+
+![](images/manager2.png)
+
+*Add to inventory*
+
+![](images/manager3.png)
