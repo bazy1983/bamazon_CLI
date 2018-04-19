@@ -2,6 +2,7 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require("cli-table");
 
+console.clear();
 var table = new Table({
     head: ['ID', 'Name', "Price"]
     , colWidths: [10, 20, 10]

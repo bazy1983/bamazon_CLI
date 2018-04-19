@@ -2,8 +2,9 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require("cli-table");
 
+console.clear();
 
-var items = []; //used to validate against user input
+var items = [];
 
 var connection = mysql.createConnection({
     host: "localhost",
