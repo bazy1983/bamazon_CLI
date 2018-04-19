@@ -22,8 +22,8 @@ connection.connect(function (err) {
 function viewStore(quantity) {
     connection.query("SELECT * FROM products WHERE stock_quantity <= ?", [quantity], function (err, res) { //show all products if stock is higher than zero
         var table = new Table({
-            head: ['ID', 'Name', "Price", "Quantity"]
-            , colWidths: [10, 20, 10, 10]
+            head: ['ID', 'Name', "Price", "Quantity"],
+             colWidths: [10, 20, 10, 10]
         });
         res.forEach(element => {
             items.push(element.item_id)
