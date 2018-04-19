@@ -60,7 +60,7 @@ new data will show up at the end of the list with new ID number.
 
 notice that the app pulls in department information from departments table, because managers can't add new departments.
 
-##bamazonSupervisor
+## bamazonSupervisor
 
 This app allows supervisor to see sales of the store, and can create new department to the store.
 
