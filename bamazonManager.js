@@ -81,7 +81,6 @@ function addInventory() {
             connection.query("SELECT * FROM products WHERE ?", { item_id: answer.id }, function (err, res) {
 
                 let newStock = parseInt(answer.quantity) + res[0].stock_quantity;
-                console.log(newStock);
                 connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newStock, answer.id])
                 console.log(`Inventory for ${res[0].product_name} has increased from ${res[0].stock_quantity} to ${newStock}`);
                 askManager();
@@ -90,12 +89,21 @@ function addInventory() {
 }
 
 function addNewItem() {
+    var departmentArr = [];
+    connection.query("SELECT department_name FROM departments ORDER BY department_name ASC", function(err, res){
+        if (err) throw err;
+        res.forEach(function(item){
+            departmentArr.push(item.department_name);
+        })
+    })
     inquirer.prompt([
         {
             name: "product",
             message: "Product Name"
         },
         {
+            type: "list",
+            choices: departmentArr,
             name: "department",
             message: "Insert Department"
         },
