@@ -15,10 +15,14 @@ The app will first prompt the user with all products available in the store, the
 ![](images/customer1.png)
 the user can choose any item by referring to it's ID number, then choose the quantity.
 right after that, the app will review the inputs to the user with total amount and asks user confirmation for purchase. if the user input yes. the transaction goes through and it will update the database both with new stock amount and sales amount.
-![](images/customer2.png)
+![](images/customer2.PNG)
 
 and here are the changes in database
+
 *BEFORE*
-![](images/customer3.png)
+
+![](images/customer3.PNG)
+
 *AFTER*
+
 ![](images/customer4.png)
