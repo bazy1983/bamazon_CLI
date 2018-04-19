@@ -81,6 +81,7 @@ function checkDB(id, quantity) {
 function confirmPurchase(product, quantity) {
     let total = parseInt(quantity) * product[0].price; //calculate total price
     let newStock = product[0].stock_quantity - parseInt(quantity);
+    let sale = product[0].product_sales + total;
     inquirer.prompt({ //confirm purchase
         type: "confirm",
         name: "purchase",
@@ -89,7 +90,7 @@ function confirmPurchase(product, quantity) {
         .then(function (answer) {
             if (answer.purchase) {
                 console.log("Transaction Successful")
-                connection.query("UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?", [newStock, total, product[0].item_id])
+                connection.query("UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?", [newStock, sale, product[0].item_id])
                 endConnection()
             } else {
                 console.log("Transaction Cancelled")
