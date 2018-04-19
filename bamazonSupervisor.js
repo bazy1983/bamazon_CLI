@@ -62,14 +62,24 @@ function viewDepartments() {
 }
 
 function createDepartment() {
+    var allDepartments = [];
     connection.query("SELECT department_name FROM departments", function (err, res) {
         if (err) throw err
-        console.log(res)
+        res.forEach(element => {
+            allDepartments.push(element.department_name);
+        });
     })
     inquirer.prompt([
         {
             name: "department",
-            message: "Create new Department: "
+            message: "Create new Department: ",
+            validate: function(value){
+                if(allDepartments.includes(value)){
+                    return false;
+                } else{
+                    return true;
+                }
+            }
         },
         {
             name: "cost",
