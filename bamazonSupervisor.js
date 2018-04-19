@@ -15,7 +15,7 @@ connection.connect(function (err) {
     if (err) throw err;
 
     askSupervisor()
-    
+
 })
 
 function askSupervisor() {
@@ -28,26 +28,26 @@ function askSupervisor() {
         .then(function (answer) {
             switch (answer.options) {
                 case "View Product Sales by Department":
-                    viewDepartments()
+                    viewDepartments();
                     break;
                 case "Create New Department":
-
+                    createDepartment();
                     break;
                 default:
-                    connection.end()
+                    connection.end();
             }
         })
 }
 
-function viewDepartments(){
+function viewDepartments() {
 
     query = "SELECT departments.*, SUM(products.product_sales) AS sales ,(SUM(products.product_sales) - departments.over_head_costs) AS total_profit FROM departments INNER JOIN products ON departments.department_name = products.department_name GROUP BY departments.department_name"
 
-    connection.query(query, function(err, res){
+    connection.query(query, function (err, res) {
         if (err) console.log(err)
         var table = new Table({
             head: ['ID', 'Department', "Overhead cost", "Sales", "Profit"],
-             colWidths: [10, 20, 20, 20, 20]
+            colWidths: [10, 20, 20, 20, 20]
         });
         res.forEach(element => {
             if (element.sales === null) element.sales = ""; //cli-table limitation, couldn't read null
@@ -57,6 +57,38 @@ function viewDepartments(){
         askSupervisor();
     })
 
-    
+
+}
+
+function createDepartment() {
+    connection.query("SELECT department_name FROM departments", function (err, res) {
+        if (err) throw err
+        console.log(res)
+    })
+    inquirer.prompt([
+        {
+            name: "department",
+            message: "Create new Department: "
+        },
+        {
+            name: "cost",
+            message: "Set overhead cost: ",
+            validate: function(value){
+                if (isNaN(value)) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+        }
+    ])
+        .then(function(answer){
+            let cost = parseInt(answer.cost);
+            connection.query("INSERT INTO departments SET ?", {
+                department_name : answer.department,
+                over_head_costs : cost
+            })
+            askSupervisor();
+        })
 }
 
