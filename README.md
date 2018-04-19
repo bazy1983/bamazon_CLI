@@ -77,6 +77,6 @@ create new department is straight forword, it allows the supervisor to create ne
 
 ![](images/supervisor2.png)
 
-###Validation:
+### Validation:
 
 The add department section has some validation messures against dublicate inputs.
