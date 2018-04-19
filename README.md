@@ -62,3 +62,21 @@ notice that the app pulls in department information from departments table, beca
 
 ##bamazonSupervisor
 
+This app allows supervisor to see sales of the store, and can create new department to the store.
+
+*View Product Sales by Department*
+
+![](images/supervisor1.png)
+
+The app will create new coloumns and do calculations on the fly to show it to the supervisor. it will calculate the sum of all products sale of each department from products table, and compare those sales to the overhead costs of the department.
+Notice that the app will ignore any deparment that doesn't have any products.
+
+*Create New Department*
+
+create new department is straight forword, it allows the supervisor to create new department and set the overhead cost of that department. that department will show up in the bamazonManager app later on if they are willing to add new product.
+
+![](images/supervisor2.png)
+
+###Validation:
+
+The add department section has some validation messures against dublicate inputs.
