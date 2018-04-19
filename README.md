@@ -49,3 +49,16 @@ The app allows the manager to perform few activities, like viewing the entire st
 *Add to inventory*
 
 ![](images/manager3.png)
+
+as for the last example, the manager successfully added another unit to product and the app showed the manager the amount of increase. then the app removed the item from low inventory.
+
+*Add new product*
+Managers can add new products to the products database by inserting product name, department, price, and quantity.
+new data will show up at the end of the list with new ID number.
+
+![](images/manager4.png)
+
+notice that the app pulls in department information from departments table, because managers can't add new departments.
+
+##bamazonSupervisor
+
